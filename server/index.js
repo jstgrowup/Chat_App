@@ -14,9 +14,10 @@ io.on("connection", (socket) => {
     console.log("user connected");
     socket.on("join_room", (data) => {
         socket.join(data)
-        console.log(`user with id: ${socket.id} has joined ${data}`);
+        // console.log(`user with id: ${socket.id} has joined ${data}`);
     })
     socket.on("send_messege", (data) => {
+        console.log(data);
         socket.to(data.curRoom).emit("recieve_messge", data)
         // console.log(data);
     })

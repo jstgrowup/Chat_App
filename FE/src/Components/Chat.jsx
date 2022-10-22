@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 function Chat({ socket, username, room }) {
     const [messege, setmessege] = useState("")
+    const [incomingMessges, setincomingMessges] = useState([])
     const HandlesendMessge = async () => {
         if (messege) {
             const messegeData = {
@@ -12,14 +13,17 @@ function Chat({ socket, username, room }) {
             }
             await socket.emit("send_messege", messegeData)
         }
+
     }
+
     useEffect(() => {
-
-  socket.on("recieve_messge",(data)=>{
-    
-  })
-
+        socket.on("recieve_messge", (data) => {
+            setincomingMessges((prev) => [...prev, data])
+        })
     }, [socket])
+   
+    // setincomingMessges(incomingMessges)
+    console.log(incomingMessges);
 
     return (
         <div>

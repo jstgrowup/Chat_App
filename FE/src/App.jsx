@@ -1,6 +1,3 @@
-
-
-// import './App.css'
 import { useState } from "react"
 import io from "socket.io-client"
 import Chat from './Components/Chat'
@@ -13,22 +10,25 @@ function App() {
   const joinRoom = () => {
     if (username && room) {
       socket.emit("join_room", room)
+      setbool(!bool)
     }
   }
 
   return (
     <div className="App">
-      <div>
+      {
+        !bool ? (<div>
+          <h3>Join the Chat</h3>
+          <input type="text" placeholder='Room ID' onChange={(e) => setroom(e.target.value)} />
+          <input type="text" placeholder='Your name' onChange={(e) => setusername(e.target.value)} />
+          <button onClick={joinRoom}>Join a room</button>
+        </div>) : (<div>
 
-        <h3>Join the Chat</h3>
-        <input type="text" placeholder='Room ID' onChange={(e) => setroom(e.target.value)} />
-        <input type="text" placeholder='hey' onChange={(e) => setusername(e.target.value)} />
-        <button onClick={joinRoom}>Join a room</button>
-      </div>
-      <div>
+          <Chat socket={socket} username={username} room={room} />
+        </div>)
+      }
 
-        <Chat socket={socket} username={username} room={room} />
-      </div>
+
     </div>
   )
 }
