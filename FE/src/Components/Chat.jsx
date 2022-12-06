@@ -21,7 +21,7 @@ function Chat({ socket, username, room }) {
             setincomingMessges((prev) => [...prev, data])
         })
     }, [socket])
-   
+  
     // setincomingMessges(incomingMessges)
     console.log(incomingMessges);
 
